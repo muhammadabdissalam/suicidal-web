@@ -1,0 +1,18 @@
+# runtime directories
+.cache
+.nitro
+.nuxt
+.output
+dist
+node_modules
+
+# configurations
+.eslintrc
+.npmrc
+.prettierrc
+
+# specific extensions
+*.md
+*.json
+*.yml
+*.yaml

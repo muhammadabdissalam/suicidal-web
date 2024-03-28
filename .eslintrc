@@ -1,0 +1,50 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "airbnb-base",
+    "airbnb-typescript/base",
+    "plugin:security/recommended",
+    "plugin:security-node/recommended",
+    "plugin:sonarjs/recommended",
+    "@nuxtjs/eslint-config-typescript", // must be after the other eslints for JS/TS related
+    "prettier" // must be the last
+  ],
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "extraFileExtensions": [
+      ".vue"
+    ]
+  },
+  "plugins": [
+    "clean-timer",
+    "security-node",
+    "sonarjs"
+  ],
+  "rules": {
+    "consistent-return": "off",
+    "no-underscore-dangle": "off",
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "import/extensions": [
+      "error",
+      "never",
+      {
+        "json": "always",
+        "svg": "always"
+      }
+    ],
+    "vue/multi-word-component-names": "off",
+    "import/no-extraneous-dependencies": "off",
+    "sonarjs/cognitive-complexity": "off",
+    "security/detect-object-injection": "off",
+    "no-param-reassign": "off",
+    "sonarjs/no-duplicate-string": "off"
+  }
+}
