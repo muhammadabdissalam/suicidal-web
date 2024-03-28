@@ -20,7 +20,7 @@ const informationCardItems: InformationCardItemType[] = [
     title: 'Baca Artikel ->',
     subtitle: 'Cari artikel dan berita terkini terkait kesehatan mental',
     image: '/image/story-card-1.png',
-    href: '/',
+    href: 'https://ayosehat.kemkes.go.id/topik-penyakit/kelainan-mental/kesehatan-jiwa',
   },
   {
     title: 'Alat bantu dan sumber informasi ->',
