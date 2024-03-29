@@ -26,7 +26,7 @@ const informationCardItems: InformationCardItemType[] = [
     title: 'Alat bantu dan sumber informasi ->',
     subtitle: 'Temukan sumber informasi terkait dengan kesehatan mental',
     image: '/image/story-card-2.png',
-    href: '/',
+    href: 'https://www.therapistaid.com/therapy-worksheets',
   },
 ]
 </script>
