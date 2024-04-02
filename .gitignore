@@ -43,3 +43,5 @@ Dockerfile.*
 docker-compose.yml
 docker-compose.*.yml
 
+localhost-key.pem
+localhost.pem

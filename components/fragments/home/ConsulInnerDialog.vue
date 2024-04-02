@@ -25,7 +25,7 @@
       </li>
     </ul>
     <div class="flex flex-col md:flex-row gap-4 md:justify-between md:items-center mt-4 md:mt-6">
-      <NuxtLink
+      <!-- <NuxtLink
         :to="
           isWebsite
             ? 'https://www.healing119.id/'
@@ -36,6 +36,17 @@
       >
         <PrimaryCTA :label="isWebsite ? 'Call via healing119.id' : 'Chat Whatsapp'" :is-width-parent="true">
         </PrimaryCTA>
+      </NuxtLink> -->
+      <ClientOnly v-if="isWebsite">
+        <CallHealing119Button />
+      </ClientOnly>
+      <NuxtLink
+        v-else
+        to="https://api.whatsapp.com/send/?phone=6281380073120&text=halo%20kak%2C%20saya%20ingin%20bercerita%20mengenai...&type=phone_number&app_absent=0"
+        target="_blank"
+        class="w-full max-w-[17.5rem] relative"
+      >
+        <PrimaryCTA label="Chat Whatsapp" :is-width-parent="true"> </PrimaryCTA>
       </NuxtLink>
       <NuxtLink
         :to="isWebsite ? '/consul' : '/consul?helpType=whatsapp'"
@@ -63,6 +74,7 @@
 <script setup lang="ts">
 import type { ConsulTabEnum } from '~/utils/global-type'
 import PrimaryCTA from '../common/PrimaryCTA.vue'
+import CallHealing119Button from './CallHealing119Button.vue'
 
 interface ConsultabSelectorItemType {
   label: string

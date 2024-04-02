@@ -16,3 +16,6 @@ node_modules
 *.json
 *.yml
 *.yaml
+
+# files
+/components/fragments/home/CallHealing119Button.vue

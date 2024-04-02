@@ -7,7 +7,8 @@
     "reset": "nuxt cleanup && nuxt prepare",
     "typecheck": "nuxt typecheck",
     "build": "nuxt build",
-    "dev": "nuxt typecheck && nuxt dev --clipboard --no-clear",
+    "dev": "nuxt dev --clipboard --no-clear",
+    "devsecure": "NODE_TLS_REJECT_UNAUTHORIZED=0 nuxt dev --https --ssl-cert localhost.pem --ssl-key localhost-key.pem",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint:js": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore .",
@@ -63,6 +64,7 @@
     "vite-plugin-compression2": "0.12.0",
     "vue-html-secure": "1.0.10",
     "vue-tippy": "6.4.1",
+    "webrtc-adapter": "7.5.0",
     "yup": "1.3.3"
   },
   "devDependencies": {
