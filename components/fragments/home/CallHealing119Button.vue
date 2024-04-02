@@ -397,6 +397,7 @@ const call = (to, video) => {
 }
 
 const handleCallNumber = () => {
+  console.log('testing call')
   call('085603638794', false)
 }
 </script>
