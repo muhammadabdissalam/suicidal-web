@@ -8,7 +8,7 @@
     "typecheck": "nuxt typecheck",
     "build": "nuxt build",
     "dev": "nuxt dev --clipboard --no-clear",
-    "devsecure": "NODE_TLS_REJECT_UNAUTHORIZED=0 nuxt dev --https --ssl-cert localhost.pem --ssl-key localhost-key.pem",
+    "devsecure": "NODE_TLS_REJECT_UNAUTHORIZED=1 nuxt dev --https --ssl-cert localhost.pem --ssl-key localhost-key.pem",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint:js": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore .",

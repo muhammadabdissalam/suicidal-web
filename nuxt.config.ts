@@ -181,7 +181,7 @@ export default defineNuxtConfig({
         gamepad: ['()'],
         geolocation: ['()'],
         gyroscope: ['()'],
-        microphone: ['()'],
+        microphone: ['*'],
         magnetometer: ['()'],
         midi: ['()'],
         payment: ['()'],
