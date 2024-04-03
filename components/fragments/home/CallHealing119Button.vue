@@ -1,7 +1,25 @@
 <template>
-  <div class="w-full max-w-[17.5rem] relative">
-    <PrimaryCTA label="Call via healing119.id" :is-width-parent="true" @on-click="handleCallNumber"> </PrimaryCTA>
+  <div class="flex items-center gap-2">
+    <div class="w-full max-w-[17.5rem] relative">
+      <PrimaryCTA
+        label="Call via healing119.id"
+        :disabled="isDisabled"
+        :is-width-parent="true"
+        @on-click="handleCallNumber"
+      >
+      </PrimaryCTA>
+    </div>
+    <video controls autoplay id="remote-stream-video" class="hidden"></video>
+    <video autoplay id="local-stream-video" class="hidden"></video>
     <audio autoplay id="remote-stream-audio"></audio>
+
+    <button
+      v-if="isCalling"
+      class="p-2 border border-red-400 text-red-400 rounded-lg inter-16-400 md:inter-20-400 !leading-[1.5] flex items-center"
+      @click="hangup"
+    >
+      Hang Up
+    </button>
   </div>
 </template>
 
@@ -11,6 +29,8 @@ import Janus from '~/utils/janus'
 import adapter from 'webrtc-adapter'
 import PrimaryCTA from '../common/PrimaryCTA.vue'
 
+const emit = defineEmits(['onRerender'])
+
 const started = ref(false)
 const registered = ref(false)
 const sipcall = ref<any>()
@@ -19,9 +39,13 @@ const counterpartNum = ref<string>()
 const incoming = ref<any>()
 const currentJsep = ref<any>()
 const supportedDevices = ref<any>()
+const isCalling = ref<boolean>(false)
+const isDisabled = ref<boolean>(true)
 
 const ringing = new Audio('sounds/ringing.mp3')
 const calling = new Audio('sounds/calling.mp3')
+ringing.loop = true
+calling.loop = true
 
 const login = () => {
   if (sipcall) {
@@ -36,6 +60,16 @@ const login = () => {
     }
     sipcall.value.send({
       message: register,
+    })
+  }
+}
+const logout = () => {
+  if (sipcall.value) {
+    const unregister = {
+      request: 'unregister',
+    }
+    sipcall.value.send({
+      message: unregister,
     })
   }
 }
@@ -202,9 +236,9 @@ onMounted(() => {
   const audioId = 'remote-stream-audio'
   const localVideoId = 'local-stream-video'
   const remoteVideoId = 'remote-stream-video'
-  const localStream = document.getElementById(`#${localVideoId}`)
-  const remoteStreamAudio = document.getElementById(`#${audioId}`)
-  const remoteStreamVideo = document.getElementById(`#${remoteVideoId}`)
+  const localStream = document.getElementById(`${localVideoId}`)
+  const remoteStreamAudio = document.getElementById(`${audioId}`)
+  const remoteStreamVideo = document.getElementById(`${remoteVideoId}`)
   if (sipcall.value) {
     login()
     return
@@ -267,6 +301,7 @@ onMounted(() => {
                       registered.value = true
                       // $(document).trigger('registered')
                     }
+                    isDisabled.value = false
                     break
 
                   case 'unregistered':
@@ -280,6 +315,7 @@ onMounted(() => {
                   case 'calling':
                     console.log('Waiting for the peer to answer...')
                     //   $(document).trigger('calling')
+                    isCalling.value = true
                     break
 
                   case 'incomingcall':
@@ -344,6 +380,7 @@ onMounted(() => {
               Janus.attachMediaStream(remoteStreamVideo, new MediaStream(videoTracks))
             },
             oncleanup: function () {
+              emit('onRerender', false)
               console.log(' ::: Got a cleanup notification :::')
             },
           })
@@ -366,7 +403,8 @@ onMounted(() => {
 })
 const call = (to, video) => {
   calling.play()
-  const sipUri = `sip:admin@healing119.id`
+
+  const sipUri = to
   getSupportedDevices(() => {
     console.log('This is a SIP call')
     sipcall.value.createOffer({
@@ -395,8 +433,35 @@ const call = (to, video) => {
     })
   })
 }
+const decline = () => {
+  incoming.value = null
+  calling.pause()
+  ringing.pause()
+  const body = {
+    request: 'decline',
+  }
+  sipcall.value.send({
+    message: body,
+  })
+}
+
+const hangup = () => {
+  if (incoming.value) {
+    decline()
+    return
+  }
+  calling.pause()
+  ringing.pause()
+  const body = {
+    request: 'hangup',
+  }
+  sipcall.value.send({
+    message: body,
+  })
+  sipcall.value.hangup()
+}
 
 const handleCallNumber = () => {
-  call('085603638794', false)
+  call('sip:2003@call.healing119.id', false)
 }
 </script>

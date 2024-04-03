@@ -38,7 +38,7 @@
         </PrimaryCTA>
       </NuxtLink> -->
       <ClientOnly v-if="isWebsite">
-        <CallHealing119Button />
+        <CallHealing119ButtonParent />
       </ClientOnly>
       <NuxtLink
         v-else
@@ -74,7 +74,7 @@
 <script setup lang="ts">
 import type { ConsulTabEnum } from '~/utils/global-type'
 import PrimaryCTA from '../common/PrimaryCTA.vue'
-import CallHealing119Button from './CallHealing119Button.vue'
+import CallHealing119ButtonParent from './CallHealing119ButtonParent.vue'
 
 interface ConsultabSelectorItemType {
   label: string

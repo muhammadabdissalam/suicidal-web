@@ -1,9 +1,10 @@
 <template>
   <button
     :class="[
-      'py-2.5 rounded-full bg-[#2F9EBD] text-white px-3 inter-16-400 md:inter-20-400 !leading-[1.5] flex items-center justify-center gap-2.5',
+      'py-2.5 rounded-full bg-[#2F9EBD] text-white px-3 inter-16-400 md:inter-20-400 !leading-[1.5] flex items-center justify-center gap-2.5 disabled:bg-neutral-200 disabled:text-neutral-400',
       isWidthParent ? 'w-full' : '',
     ]"
+    :disabled="disabled"
     @click="$emit('onClick')"
   >
     <slot name="left-icon" />
@@ -16,6 +17,7 @@
 interface Props {
   label: string
   isWidthParent?: boolean
+  disabled?: boolean
 }
 defineProps<Props>()
 defineEmits(['onClick'])
